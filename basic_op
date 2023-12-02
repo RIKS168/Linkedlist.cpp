@@ -1,0 +1,90 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node* next;
+    Node(int data){
+        this->data=data;
+        next=NULL;
+    }
+};
+    void print(Node* & head){
+        Node* temp=head;
+        while(temp!=NULL){
+            cout<<temp->data<<" ";
+            temp=temp->next;
+        }
+        cout<<endl;
+    }
+    int len(Node* & head){
+        int cunt=0;
+        Node* temp=head;
+        while(temp!=NULL){
+            temp=temp->next;
+            cunt++;
+        }
+        return cunt;
+        cout<<endl;
+    }
+    void insertAtbeg(Node* & head, int data){
+        Node* temp =new Node(data);
+        temp->next=head;
+        head=temp;
+        
+    }
+    void insertAtend(Node* &head, int data){
+        Node* t=head;
+        while(t->next!=NULL){
+            t=t->next;
+        }
+         Node* temp=new Node(data);
+         t->next=temp;
+    }
+    void insertAtgivenindex(Node* &head , int data , int pos){
+        if(pos==0){
+            insertAtbeg(head,data);
+            return;
+        }
+        if(pos==len(head)){
+            insertAtend(head,data);
+            return;
+        }
+        Node* t=head;
+        for(int i=0;i<pos-1;i++){
+            t=t->next;
+        }
+        Node* temp=new Node(data);
+        temp->next=t->next;
+        t->next=temp;
+        
+    }
+int main() {
+    // Write C++ code here
+    std::cout << "Hello world!"<<endl;;
+    Node* a=new Node (5);
+    Node* b=new Node (6);
+    Node* c=new Node (7);
+    a->next=b;
+    b->next=c;
+    c->next=NULL;
+    print(a);
+    cout<<endl;
+    insertAtbeg(a, 4);
+    print(a);
+    cout<<endl;
+    insertAtend(a,8);
+    cout<<endl;
+    print(a);
+    cout<<endl;
+    insertAtgivenindex(a, 3, 0);
+    print(a);
+    cout<<endl;
+    int ans=len(a);
+    cout<<ans<<endl;
+    insertAtgivenindex(a, 10, 6);
+    print(a);
+    
+    return 0;
+}
