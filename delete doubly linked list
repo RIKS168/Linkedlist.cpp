@@ -1,0 +1,93 @@
+#include<iostream>
+using namespace std;
+class node{
+    public:
+    int data;
+    node* next;
+    node* prev;
+    node(int data){
+        this->data=data;
+        next=prev=NULL;
+    }
+};
+void print(node* &head){
+    node* temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }   
+    cout<<endl;
+}
+int leng(node* &head){
+    int count=0;
+     node* temp=head;
+    while(temp!=NULL){
+        temp=temp->next;
+        count++;
+    }   
+    return count;
+    cout<<endl;
+}
+void insertbeg(node* &head, int d){
+    node* temp=new node(d);
+    temp->next=head;
+    head->prev=temp;
+    head=temp;
+}
+void insertend(node* &head,int d,int pos){
+    node* temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    node* t=new node(d);
+    temp->next=t;
+    t->prev=temp;
+    t->next=NULL;
+    t=temp;
+}
+void insertatanypos(node* & head,int pos,int data){
+    node* temp=head;
+    for(int i=0;i<pos-1;i++){
+        temp=temp->next;
+    }
+    node* t=new node(data);
+    t->next = temp->next;
+    t->prev = temp;
+      temp->next = t;
+}
+void deleteat(node* &head, int pos){
+    if(pos==0){
+        head=head->next;
+        head->prev=NULL;
+        return;
+    }
+    node*temp=head;
+    for(int i=0;i<pos-1;i++){
+        temp=temp->next;
+    }
+    temp->next=temp->next->next;
+    temp->next->prev=temp;
+
+}
+int main(){
+    node* a=new node(5);
+    node* b=new node(3);
+    node* c=new node(8);
+    a->prev=NULL;
+    a->next=b;
+    b->prev=a;
+    b->next=c;
+    c->prev=b;
+    c->next=NULL;
+     print(a);      
+    insertbeg(a,2);
+    print(a);
+    insertend(a,9,4);
+    print(a);
+    insertatanypos(a,4,10);
+    print(a);
+    deleteat(a,4);
+    print(a);
+    deleteat(a,3);
+    print(a);
+}
