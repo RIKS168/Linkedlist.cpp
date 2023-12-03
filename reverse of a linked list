@@ -1,0 +1,67 @@
+#include<iostream>
+using namespace std;
+class node{
+    public:
+    int data;
+    node* next;
+    node(int data){
+        this->data=data;
+    }
+};
+void print(node* &head){
+    node* temp=head;
+   while (temp != NULL){
+       cout<<temp->data<<" ";
+       temp=temp->next;
+   }
+    cout<<endl;
+    }
+
+node* middle(node* head){
+    node*slow=head;
+    node*fast=head;
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    return slow;
+}
+
+void reverse(node* &head){
+    node* temp=NULL;
+    node* curr=head;
+    node* prev=NULL;
+    while(curr!=NULL){
+        temp=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=temp;
+    }
+    //before reverse situation is 
+    head = prev;
+}
+
+int main(){
+    node* a=new node(4);
+    node* b=new node(3);
+    node* c=new node(5);
+    node* d=new node(9);
+    node* e=new node(12);
+   node* f=new node(23);
+    
+    a->next=b;
+    b->next=c;
+    c->next=d;
+    d->next=e;
+    e->next=f;
+    
+    print(a);
+    node* p=middle(a);
+   cout<<p->data<<endl;;
+    reverse(a);
+    print(a);
+    
+    
+    
+    return 0;
+}
